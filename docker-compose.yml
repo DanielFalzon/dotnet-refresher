@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  superheroapi:
+    image: ${DOCKER_REGISTRY-}superheroapi
+    depends_on:
+        - superherodb
+    ports:
+        - 443:443
+    build:
+      context: .
+      dockerfile: SuperHeroAPI/Dockerfile
+    environment:
+        ConnectionStrings__DefaultConnection: "Server=superherodb;Database=superherodb;User=SA;Password=M1P4ssw0rd!@#;TrustServerCertificate=true;integrated security=false"
+
+  superherodb:
+    container_name: superherodb
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1433:1433
+    hostname: superherodb
+    platform: linux/amd64
+    environment:
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: ${DATABASE_PASSWORD}
+
+#Look into how docker secrets work to replace env
