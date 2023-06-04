@@ -11,6 +11,7 @@ namespace SuperHeroAPI.Data
 
         public DbSet<SuperHero> SuperHeroes { get; set; }
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
 
