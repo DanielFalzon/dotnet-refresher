@@ -11,8 +11,8 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230525040339_AddMiddleName")]
-    partial class AddMiddleName
+    [Migration("20230606210446_RemovedTimestamps")]
+    partial class RemovedTimestamps
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,29 @@ namespace SuperHeroAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SuperHeroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SuperHeroId")
+                        .IsUnique();
+
+                    b.ToTable("Backpacks");
+                });
 
             modelBuilder.Entity("SuperHeroAPI.Models.SuperHero", b =>
                 {
@@ -40,10 +63,6 @@ namespace SuperHeroAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Middlename")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -55,6 +74,23 @@ namespace SuperHeroAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SuperHeroes");
+                });
+
+            modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>
+                {
+                    b.HasOne("SuperHeroAPI.Models.SuperHero", "SuperHero")
+                        .WithOne("Backpack")
+                        .HasForeignKey("SuperHeroAPI.Models.Backpack", "SuperHeroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SuperHero");
+                });
+
+            modelBuilder.Entity("SuperHeroAPI.Models.SuperHero", b =>
+                {
+                    b.Navigation("Backpack")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

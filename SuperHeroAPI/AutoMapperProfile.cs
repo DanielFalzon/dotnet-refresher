@@ -10,8 +10,6 @@ namespace SuperHeroAPI
 		{
 			CreateMap<SuperHero, SuperHeroDto>();
 			CreateMap<SuperHeroDto, SuperHero>();
-			CreateMap<Movie, MovieDto>();
-			CreateMap<MovieDto, Movie>();
 		}
 	}
 }

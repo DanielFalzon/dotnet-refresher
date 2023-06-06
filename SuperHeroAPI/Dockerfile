@@ -11,6 +11,8 @@ COPY . .
 WORKDIR "/src/SuperHeroAPI"
 RUN dotnet build "SuperHeroAPI.csproj" -c Release -o /app/build
 
+RUN dotnet dev-certs https
+
 FROM build AS publish
 RUN dotnet publish "SuperHeroAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 

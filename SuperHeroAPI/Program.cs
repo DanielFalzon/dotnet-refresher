@@ -3,7 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using SuperHeroAPI.Data;
 using SuperHeroAPI.Services.SuperHeroService;
 using SuperHeroAPI.Controllers;
-using SuperHeroAPI.Services.MovieService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +17,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddScoped<ISuperHeroService, SuperHeroService>();
-builder.Services.AddScoped<IMovieService, MovieService>();
 //AddTransient and AddSingleton Available as well. Above can be used to replace which service and interface implements.
 
 // Setup database connection

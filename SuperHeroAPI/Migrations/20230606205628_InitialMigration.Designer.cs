@@ -12,8 +12,8 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230527214639_MovieCreation")]
-    partial class MovieCreation
+    [Migration("20230606205628_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,22 +25,7 @@ namespace SuperHeroAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MovieSuperHero", b =>
-                {
-                    b.Property<int>("MoviesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SuperHeroesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MoviesId", "SuperHeroesId");
-
-                    b.HasIndex("SuperHeroesId");
-
-                    b.ToTable("MovieSuperHero");
-                });
-
-            modelBuilder.Entity("SuperHeroAPI.Models.Movie", b =>
+            modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,16 +33,19 @@ namespace SuperHeroAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SuperHeroId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Movie");
+                    b.HasIndex("SuperHeroId")
+                        .IsUnique();
+
+                    b.ToTable("Backpacks");
                 });
 
             modelBuilder.Entity("SuperHeroAPI.Models.SuperHero", b =>
@@ -68,15 +56,17 @@ namespace SuperHeroAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Firstname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Middlename")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -93,18 +83,20 @@ namespace SuperHeroAPI.Migrations
                     b.ToTable("SuperHeroes");
                 });
 
-            modelBuilder.Entity("MovieSuperHero", b =>
+            modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>
                 {
-                    b.HasOne("SuperHeroAPI.Models.Movie", null)
-                        .WithMany()
-                        .HasForeignKey("MoviesId")
+                    b.HasOne("SuperHeroAPI.Models.SuperHero", "SuperHero")
+                        .WithOne("Backpack")
+                        .HasForeignKey("SuperHeroAPI.Models.Backpack", "SuperHeroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SuperHeroAPI.Models.SuperHero", null)
-                        .WithMany()
-                        .HasForeignKey("SuperHeroesId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.Navigation("SuperHero");
+                });
+
+            modelBuilder.Entity("SuperHeroAPI.Models.SuperHero", b =>
+                {
+                    b.Navigation("Backpack")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

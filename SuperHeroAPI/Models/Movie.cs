@@ -9,10 +9,6 @@ namespace SuperHeroAPI.Models
 		public List<SuperHero> SuperHeroes { get; set; } = new List<SuperHero>();
 		public DateTime DateCreated { get; set; } = DateTime.Now;
 		public DateTime? DateModified { get; set; }
-
-        public Movie()
-		{	
-		}
 	}
 }
 

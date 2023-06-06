@@ -59,7 +59,6 @@ namespace SuperHeroAPI.Services.SuperHeroService
             hero.Lastname = !String.IsNullOrEmpty(request.Lastname) ? request.Lastname : hero.Lastname;
             hero.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : hero.Name;
             hero.Place = !String.IsNullOrEmpty(request.Place) ? request.Place : hero.Place;
-            hero.DateModified = DateTime.Now;
             //hero.Movies = _context.Movies.Where(m => m.SuperHeroes.Where(sh => sh.Id == id))
 
             _context.SaveChanges();

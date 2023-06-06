@@ -32,15 +32,16 @@ namespace SuperHeroAPI.Controllers
             );
         }
 
-        [HttpGet]
-        [Route("api/SuperHeroesByUser/{userId}")]
-        public ActionResult<List<SuperHeroDto>> GetAllHeroesByUserId(int userId)
-        {
-            //return Ok(
-            //    _superHeroService.GetAllHeroes()
-            //        .Select(hero => _mapper.Map<SuperHeroDto>(hero))
-            //);
-        }
+        //[HttpGet]
+        //[Route("/api/SuperHeroesByUser/{userId}")]
+        //public ActionResult<List<SuperHeroDto>> GetAllHeroesByUserId(int userId)
+        //{
+        //    IEnumerable<SuperHeroDto> result = _superHeroService.GetAllHeroes()
+        //        .FindAll(hero => hero.UserId == userId)
+        //        .Select(hero => _mapper.Map<SuperHeroDto>(hero));
+
+        //    return Ok(result);
+        //}
 
         [HttpGet("{id}")]
         public ActionResult<SuperHeroDto> GetSingleHero(int id)

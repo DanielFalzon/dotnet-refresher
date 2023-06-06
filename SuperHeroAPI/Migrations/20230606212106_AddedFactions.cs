@@ -1,48 +1,46 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace SuperHeroAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class MovieCreation : Migration
+    public partial class AddedFactions : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Movie",
+                name: "Factions",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Movie", x => x.Id);
+                    table.PrimaryKey("PK_Factions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovieSuperHero",
+                name: "FactionSuperHero",
                 columns: table => new
                 {
-                    MoviesId = table.Column<int>(type: "int", nullable: false),
+                    FactionsId = table.Column<int>(type: "int", nullable: false),
                     SuperHeroesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovieSuperHero", x => new { x.MoviesId, x.SuperHeroesId });
+                    table.PrimaryKey("PK_FactionSuperHero", x => new { x.FactionsId, x.SuperHeroesId });
                     table.ForeignKey(
-                        name: "FK_MovieSuperHero_Movie_MoviesId",
-                        column: x => x.MoviesId,
-                        principalTable: "Movie",
+                        name: "FK_FactionSuperHero_Factions_FactionsId",
+                        column: x => x.FactionsId,
+                        principalTable: "Factions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MovieSuperHero_SuperHeroes_SuperHeroesId",
+                        name: "FK_FactionSuperHero_SuperHeroes_SuperHeroesId",
                         column: x => x.SuperHeroesId,
                         principalTable: "SuperHeroes",
                         principalColumn: "Id",
@@ -50,8 +48,8 @@ namespace SuperHeroAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_MovieSuperHero_SuperHeroesId",
-                table: "MovieSuperHero",
+                name: "IX_FactionSuperHero_SuperHeroesId",
+                table: "FactionSuperHero",
                 column: "SuperHeroesId");
         }
 
@@ -59,10 +57,10 @@ namespace SuperHeroAPI.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "MovieSuperHero");
+                name: "FactionSuperHero");
 
             migrationBuilder.DropTable(
-                name: "Movie");
+                name: "Factions");
         }
     }
 }
