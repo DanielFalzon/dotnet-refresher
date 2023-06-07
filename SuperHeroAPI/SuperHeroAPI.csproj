@@ -48,6 +48,5 @@
     <Folder Include="Services\" />
     <Folder Include="Services\SuperHeroService\" />
     <Folder Include="Data\" />
-    <Folder Include="Models\DTOs\" />
   </ItemGroup>
 </Project>
