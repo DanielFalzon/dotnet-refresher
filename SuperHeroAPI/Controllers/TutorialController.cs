@@ -32,6 +32,7 @@ namespace SuperHeroAPI.Controllers
         public async Task<ActionResult<List<SuperHero>>> CreateSuperHero(SuperHeroCreateDto request)
         {
             //TODO: Move to superhero service
+            //TODO: Leverage automapper for relations
             //TODO: Create services and endpoints to create factions, backpacks and weapons individually
             //TODO: Handle ability to create superhero with existing factions, backpacks and weapons
             var newSuperHero = new SuperHero
