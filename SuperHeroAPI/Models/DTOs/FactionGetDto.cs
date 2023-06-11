@@ -1,5 +1,5 @@
 ﻿namespace SuperHeroAPI.Models.DTOs
 {
     //TODO: Check for uniqueness when creating a faction
-    public record struct FactionCreateDto( string Name );
+    public record struct FactionGetDto( int id, string Name );
 }

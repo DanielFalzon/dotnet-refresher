@@ -10,6 +10,11 @@ namespace SuperHeroAPI
 		{
 			CreateMap<SuperHero, SuperHeroDto>();
 			CreateMap<SuperHeroDto, SuperHero>();
+
+			CreateMap<Weapon, WeaponCreateDto>();
+            CreateMap<Weapon, WeaponGetDto>();
+            CreateMap<WeaponCreateDto, Weapon>();
+			CreateMap<WeaponGetDto, Weapon>();
 		}
 	}
 }

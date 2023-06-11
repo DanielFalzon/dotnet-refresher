@@ -56,6 +56,8 @@ namespace SuperHeroAPI.Controllers
         [HttpPost]
         public ActionResult<List<SuperHeroDto>> AddHero(SuperHeroDto newHero)
         {
+            //TODO: Update relations between faction + weapon and backpack data
+
             var hero = _mapper.Map<SuperHero>(newHero);
             var heroes = _superHeroService.AddHero(hero);
 
@@ -67,6 +69,8 @@ namespace SuperHeroAPI.Controllers
         [HttpPut("{id}")]
         public ActionResult<List<SuperHeroDto>> UpdateHero(int id, SuperHeroDto updatedHero)
         {
+            //TODO: Update relations between faction + weapon and backpack data
+
             var hero = _mapper.Map<SuperHero>(updatedHero);
             List<SuperHero>? heroes = _superHeroService.UpdateHero(id, hero);
 

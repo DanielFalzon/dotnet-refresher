@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SuperHeroAPI.Services.SuperHeroService
+﻿namespace SuperHeroAPI.Services.SuperHeroService
 {
 	public class SuperHeroService: ISuperHeroService
 	{
@@ -59,7 +57,8 @@ namespace SuperHeroAPI.Services.SuperHeroService
             hero.Lastname = !String.IsNullOrEmpty(request.Lastname) ? request.Lastname : hero.Lastname;
             hero.Name = !String.IsNullOrEmpty(request.Name) ? request.Name : hero.Name;
             hero.Place = !String.IsNullOrEmpty(request.Place) ? request.Place : hero.Place;
-            //hero.Movies = _context.Movies.Where(m => m.SuperHeroes.Where(sh => sh.Id == id))
+
+            hero.Backpack.Description = !String.IsNullOrEmpty(request.Backpack.Description) ? request.Backpack.Description : hero.Backpack.Description;
 
             _context.SaveChanges();
              

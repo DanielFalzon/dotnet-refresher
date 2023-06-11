@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Storage.Blobs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Framework;
 using SuperHeroAPI.Models.DTOs;
@@ -14,6 +15,7 @@ namespace SuperHeroAPI.Controllers
         public TutorialController(DataContext context)
         {
             _context = context;
+
         }
 
         [HttpGet("{id}")]
@@ -33,7 +35,7 @@ namespace SuperHeroAPI.Controllers
         {
             //TODO: Move to superhero service
             //TODO: Leverage automapper for relations
-            //TODO: Create services and endpoints to create factions, backpacks and weapons individually
+            //TODO: Create services and endpoints to create factions and weapons individually. Backpacks are always created with superheroes
             //TODO: Handle ability to create superhero with existing factions, backpacks and weapons
             var newSuperHero = new SuperHero
             {

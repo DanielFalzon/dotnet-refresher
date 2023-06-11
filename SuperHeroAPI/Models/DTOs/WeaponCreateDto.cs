@@ -2,6 +2,7 @@
 {
     //TODO: Check for uniqueness when creating a weapon
     public record struct WeaponCreateDto(
-        string Name
+        string Name,
+        int SuperHeroId
     );
 }
