@@ -2,9 +2,8 @@ global using SuperHeroAPI.Models;
 global using Microsoft.EntityFrameworkCore;
 global using SuperHeroAPI.Data;
 using SuperHeroAPI.Services.SuperHeroService;
-using SuperHeroAPI.Controllers;
-using Microsoft.Extensions.Azure;
 using SuperHeroAPI.Services.WeaponService;
+using SuperHeroAPI.Services.FactionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +18,7 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddScoped<ISuperHeroService, SuperHeroService>();
 builder.Services.AddScoped<IWeaponService, WeaponService>();
+builder.Services.AddScoped<IFactionService, FactionService>();
 //AddTransient and AddSingleton Available as well. Above can be used to replace which service and interface implements.
 
 // Setup database connection

@@ -12,6 +12,7 @@
         public List<Faction> AddFaction(Faction faction)
         {
             _context.Factions.Add(faction);
+            _context.SaveChanges();
 
             return _context.Factions.ToList<Faction>();
         }

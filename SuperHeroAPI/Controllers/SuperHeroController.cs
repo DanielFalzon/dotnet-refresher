@@ -47,27 +47,28 @@ namespace SuperHeroAPI.Controllers
         public ActionResult<SuperHeroDto> GetSingleHero(int id)
         {
             SuperHero? hero = _superHeroService.GetSingleHero(id);
-            if (hero is null)
-                return NotFound("Hero not found.");
+
+            if (hero is null) return NotFound("Hero not found.");
 
             return Ok(_mapper.Map<SuperHeroDto>(hero));
         }
 
         [HttpPost]
-        public ActionResult<List<SuperHeroDto>> AddHero(SuperHeroDto newHero)
+        public ActionResult<List<SuperHeroDto>> AddHero(SuperHeroCreateDto newHero)
         {
             //TODO: Update relations between faction + weapon and backpack data
 
-            var hero = _mapper.Map<SuperHero>(newHero);
-            var heroes = _superHeroService.AddHero(hero);
+            SuperHero hero = _mapper.Map<SuperHero>(newHero);
 
-            return Ok(heroes
-                    .Select(hero => _mapper.Map<SuperHeroDto>(hero))
-                );
+            var heroes = _superHeroService.AddHero(
+                hero
+            );
+
+            return Ok(heroes.Select(_mapper.Map<SuperHeroDto>));
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<SuperHeroDto>> UpdateHero(int id, SuperHeroDto updatedHero)
+        public ActionResult<List<SuperHeroDto>> UpdateHero(int id, SuperHeroCreateDto updatedHero)
         {
             //TODO: Update relations between faction + weapon and backpack data
 
@@ -77,9 +78,7 @@ namespace SuperHeroAPI.Controllers
             if (heroes is null)
                 return NotFound("Hero not found");
 
-            return Ok(heroes
-                .Select(hero => _mapper.Map<SuperHeroDto>(hero))
-            );
+            return Ok(heroes.Select(_mapper.Map<SuperHeroDto>));
         }
 
         [HttpDelete("{id}")]
@@ -90,9 +89,7 @@ namespace SuperHeroAPI.Controllers
             if (heroes is null)
                 return NotFound("Hero not found.");
 
-            return Ok(heroes
-                .Select(hero => _mapper.Map<SuperHeroDto>(hero))
-            );
+            return Ok(heroes.Select(_mapper.Map<SuperHeroDto>));
         }
     }
 }
