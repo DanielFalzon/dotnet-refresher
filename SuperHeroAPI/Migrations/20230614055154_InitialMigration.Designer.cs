@@ -11,8 +11,8 @@ using SuperHeroAPI.Data;
 namespace SuperHeroAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230606211254_FixedTypo")]
-    partial class FixedTypo
+    [Migration("20230614055154_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace SuperHeroAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("FactionSuperHero", b =>
+                {
+                    b.Property<int>("FactionsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SuperHeroesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FactionsId", "SuperHeroesId");
+
+                    b.HasIndex("SuperHeroesId");
+
+                    b.ToTable("FactionSuperHero");
+                });
 
             modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>
                 {
@@ -45,6 +60,23 @@ namespace SuperHeroAPI.Migrations
                         .IsUnique();
 
                     b.ToTable("Backpacks");
+                });
+
+            modelBuilder.Entity("SuperHeroAPI.Models.Faction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Factions");
                 });
 
             modelBuilder.Entity("SuperHeroAPI.Models.SuperHero", b =>
@@ -96,6 +128,21 @@ namespace SuperHeroAPI.Migrations
                     b.HasIndex("SuperHeroId");
 
                     b.ToTable("Weapons");
+                });
+
+            modelBuilder.Entity("FactionSuperHero", b =>
+                {
+                    b.HasOne("SuperHeroAPI.Models.Faction", null)
+                        .WithMany()
+                        .HasForeignKey("FactionsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SuperHeroAPI.Models.SuperHero", null)
+                        .WithMany()
+                        .HasForeignKey("SuperHeroesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SuperHeroAPI.Models.Backpack", b =>

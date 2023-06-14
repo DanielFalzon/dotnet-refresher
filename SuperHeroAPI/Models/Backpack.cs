@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace SuperHeroAPI.Models
+﻿namespace SuperHeroAPI.Models
 {
     public class Backpack
     {

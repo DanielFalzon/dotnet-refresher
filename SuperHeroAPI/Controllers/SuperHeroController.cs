@@ -57,7 +57,7 @@ namespace SuperHeroAPI.Controllers
         public ActionResult<List<SuperHeroDto>> AddHero(SuperHeroCreateDto newHero)
         {
             //TODO: Update relations between faction + weapon and backpack data
-
+            //TODO: Still need AutoMapperProfile.cs cleanup
             SuperHero hero = _mapper.Map<SuperHero>(newHero);
 
             var heroes = _superHeroService.AddHero(

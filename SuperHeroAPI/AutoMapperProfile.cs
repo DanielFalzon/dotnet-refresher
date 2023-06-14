@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SuperHeroAPI.Builders;
 using SuperHeroAPI.Models.DTOs;
 using SuperHeroAPI.Services.FactionService;
 
@@ -36,28 +37,27 @@ namespace SuperHeroAPI
 
         public SuperHero Convert(SuperHeroCreateDto source, SuperHero destination, ResolutionContext context)
 		{
-			//TODO: Investigate why this is allowed when the Backpack class requires the SuperHero model to be set. 
-			Backpack backpack = context.Mapper.Map<Backpack>(source.Backpack);
+            //TODO: Investigate why this is allowed when the Backpack class requires the SuperHero model to be set. 
+            Backpack backpack = context.Mapper.Map<Backpack>(source.Backpack);
 
-			//TODO: Why is the warning here still being thrown? Look into.
+			SuperHeroBuilder superHeroBuilder = new SuperHeroBuilder(backpack)
+				.WithName(source.Name)
+				.WithFirstName(source.Firstname)
+				.WithLastName(source.Lastname)
+				.WithPlace(source.Place);
+
+			//NOTE: Where clause isn't recogninzed at compile time. OfType used to tell compiler that nulls are filtered out.
             List<Faction> factions = source.FactionIds
                 .Select(_factionService.GetSingleFaction)
-                .Where(faction => faction != null)
+                .OfType<Faction>()
                 .ToList();
 
-			destination = new SuperHero
-			{
-				Name = source.Name,
-				Place = source.Place,
-				Firstname = source.Firstname,
-				Lastname = source.Lastname,
-				Factions = factions,
-				Backpack = backpack
-			};
+			superHeroBuilder.WithFactions(factions);
 
-			destination.Backpack.SuperHero = destination;
+			SuperHero hero = superHeroBuilder.Build();
+			backpack.SuperHero = hero;
 
-			return destination;
+            return superHeroBuilder.Build(); ;
 		}
 	}
 }
